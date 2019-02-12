@@ -138,7 +138,24 @@ false
 The next step is to traverse the tree in both ways:
 
 * Depth first traversal: from top to the bottom, first left then right.
-* Breath First Traversal: level by level
+* Breadth First Traversal: level by level
+
+For a tree like...
+
+```
+             70
+           /    \
+          40    100
+         /  \   /  \
+        25  41 90  null
+       /  \
+      11  null
+```
+
+The expected results are:
+
+* Depth: 70, 40, 25, 11, 41, 100, 90
+* Breadth: 70 - 40, 100 - 25, 41, 90 - 11
 
 ## Solution:
 
@@ -161,3 +178,53 @@ BST.depth(logInConsole);
 ```
 
 ## Result:
+
+```
+50
+40
+12
+100
+90
+98
+```
+
+---
+
+## Solution:
+
+```JavaScript
+BinarSearchTree.prototype.breadth = function (traverseFn) {
+
+// we start with a queue with our tree
+let q = [this];
+
+// we iterate the q until we dont have more nodes
+while (q.length) {
+  // we remove the first element and log it
+  let level = q.shift();
+  traverseFn(level.value);
+
+  if (level.left) q.push(level.left);
+  if (level.right) q.push(level.right);
+}
+
+}
+
+function logInConsole(value) {
+  console.log(value);
+}
+
+
+BST.breadth(logInConsole);
+```
+
+## Result:
+
+```
+50
+40
+100
+12
+90
+98
+```
