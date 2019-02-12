@@ -333,7 +333,10 @@ LL.removeNode(1);
 ## Result
 
 ```
-
+{…}
+head: Object { value: 30, next: {…}, prev: null }
+tail: Object { value: 10, next: null, prev: {…} }
+<prototype>: Object { addHead: addHead(), addTail: addTail(), searchIndex: searchIndex(), … }
 ```
 
 ---
