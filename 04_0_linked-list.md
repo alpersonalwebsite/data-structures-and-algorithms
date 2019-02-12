@@ -256,13 +256,10 @@ LinkedList.prototype.addNode = function(index, value) {
   if (nodeAtIndex) {
     prevNode = nodeAtIndex.prev;
     nextNode = nodeAtIndex.next;
-
   }
 
-  let newNode = new Node(value, nodeAtIndex, nextNode);
+  let newNode = new Node(value, nodeAtIndex, prevNode);
   prevNode.next = newNode;
-
-  nextNode ? nextNode.prev = newNode : nextNode = nextNode;
 }
 
 LL.addNode(2,60);
@@ -306,6 +303,7 @@ LinkedList.prototype.removeNode = function(index) {
   if (index === 0) {
     this.head = this.head.next;
     this.head.prev = null;
+    return;
   }
 
   // We need to find the node at that index: null or node
