@@ -228,3 +228,29 @@ BST.breadth(logInConsole);
 90
 98
 ```
+
+---
+
+One more note... We can also use recursion to get the _minimum_ and _maximum_ value of the nodes in our tree.
+
+```javascript
+BinarSearchTree.prototype.min = function() {
+  if (this.left) return this.left.min();
+  else return this.value;
+};
+
+BinarSearchTree.prototype.max = function() {
+  if (this.right) return this.right.max();
+  else return this.value;
+};
+
+console.log(BST.min());
+console.log(BST.max());
+```
+
+Result:
+
+```
+12
+100
+```
