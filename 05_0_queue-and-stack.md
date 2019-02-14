@@ -16,12 +16,12 @@ class Queue {
 
 
 Queue.prototype.add = function(value) {
-  // Add at the beginning
+  // adds at the beginning
   this.data.unshift(value);
 }
 
-Queue.prototype.remove = function(value) {
-  // Remove from the end
+Queue.prototype.remove = function() {
+  // removes from the end
   this.data.pop();
 }
 
@@ -133,6 +133,8 @@ Create a `Stack` using the `class keyword`. Add to the Stack prototype the follo
 
 * Object.add(value)
 * Object.remove(value)
+
+_Note:_ Perhaps the right terminology would be push instead of add, however, I want to keep independency between native function (like push for Arrays) and ours.
 
 ## Solution:
 
