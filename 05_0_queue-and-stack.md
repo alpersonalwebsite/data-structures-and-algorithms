@@ -134,7 +134,7 @@ Create a `Stack` using the `class keyword`. Add to the Stack prototype the follo
 * Object.add(value)
 * Object.remove(value)
 
-_Note:_ Perhaps the right terminology would be push instead of add, however, I want to keep independency between native function (like push for Arrays) and ours.
+_Note:_ Perhaps the right terminology would be push instead of add, however, I want to keep independency between native function (like push for Arrays) and ours. The same for pop which is going to be referenced as remove.
 
 ## Solution:
 
@@ -150,13 +150,34 @@ Stack.prototype.add = function(value) {
   this.data.push(value);
 }
 
+Stack.prototype.remove = function() {
+  // It will remove the last one
+  return this.data.pop();
+}
+
 let S = new Stack();
 
 S.add(10);
 S.add(20);
 S.add(30);
 
+S.remove();
+
 console.log(S.data);
 ```
 
 ## Result:
+
+```
+[ 10, 20 ]
+```
+
+Graphically, our stack would be something like...
+
+```
+______
+| 30 |
+| 20 |
+| 10 |
+|____|
+```
