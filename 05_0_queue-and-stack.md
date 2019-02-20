@@ -138,4 +138,25 @@ _Note:_ Perhaps the right terminology would be push instead of add, however, I w
 
 ## Solution:
 
+```JavaScript
+class Stack {
+  constructor() {
+    this.data = [];
+  }
+}
+
+Stack.prototype.add = function(value) {
+  // At at the end
+  this.data.push(value);
+}
+
+let S = new Stack();
+
+S.add(10);
+S.add(20);
+S.add(30);
+
+console.log(S.data);
+```
+
 ## Result:
