@@ -1,9 +1,95 @@
 # Queue (FIFO: First In, First Out)
 
-Create a `Queue` using the `class keyword`. Add to the Queue prototype the following methods:
+Queue visual representation: https://www.cs.usfca.edu/~galles/visualization/StackArray.html
 
-* Object.add(value)
-* Object.remove(value)
+> In computer science, a queue is a collection of entities that are maintained in a sequence and can be modified by the addition of entities at one end of the sequence and the removal of entities from the other end of the sequence. By convention, the end of the sequence at which elements are added is called the back, tail, or rear of the queue, and the end at which elements are removed is called the head or front of the queue, analogously to the words used when people line up to wait for goods or services.
+
+The operation of adding an element to the rear of the queue is known as enqueue, and the operation of removing an element from the front is known as dequeue. Other operations may also be allowed, often including a peek or front operation that returns the value of the next element to be dequeued without dequeuing it. Source: [Queue (abstract data type)](https://en.wikipedia.org/wiki/Queue_(abstract_data_type))
+
+
+## Queue: Array implementation > this._data = []
+
+```js
+class Queue {
+
+  constructor() {
+    this._data = [];
+  }
+
+  ifQisEmptyHelper(method) {
+    if (this._data.length < 1) console.log(`The Q is empty! Error when trying to: ${method}`)
+  }
+
+  enqueue(value) {
+    this._data.unshift(value)
+  }
+  
+  dequeue() {
+    this.ifQisEmptyHelper('dequeue')
+    this._data.pop()
+  }
+
+  peek() {
+    this.ifQisEmptyHelper('peek')
+    const firstElementInQ = this._data[this._data.length - 1]
+    console.log(firstElementInQ)
+  }
+}
+
+const myQueue = new Queue();
+
+myQueue.dequeue()
+
+myQueue.enqueue(1)
+myQueue.enqueue(2)
+myQueue.enqueue(3)
+
+myQueue.dequeue()
+myQueue.dequeue()
+
+myQueue.peek()
+
+console.log(myQueue);
+```
+
+Some considerations:
+
+1. `_` is a general convention to "define" a property as internal, meaning that you should not access the property directly.
+Remember it is a convention, so you can interact with the property even when you MUST NOT do it.
+
+DO NOT do this
+```js
+myQueue._data = 10
+console.log(myQueue);
+// Queue { _data: 10 }
+```
+
+The good news, at the time of writing these notes, [Class field declarations for JavaScript](https://github.com/tc39/proposal-class-fields) is in `stage 3` and moving through the ladder, so at future we should be able to have -natively- "private fields" in JS:
+
+```js
+class Queue {
+  
+  #data
+
+  constructor() {
+    this.#data = [];
+  }
+
+}
+```
+
+Until it becomes part of JS, you can use Babel with the proper polyfiller. Take a look to [Babel](https://babeljs.io/docs/en/usage)
+
+<!--
+TODO: Add example with private field
+-->
+
+2. I have seen several examples extending the "object prototype"
+
+
+
+
+
 
 ## Solution:
 
