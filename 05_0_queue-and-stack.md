@@ -1,11 +1,41 @@
 # Queue (FIFO: First In, First Out)
 
-Queue visual representation: https://www.cs.usfca.edu/~galles/visualization/StackArray.html
+Queue visual representation: https://www.cs.usfca.edu/~galles/visualization/QueueArray.html
+
+A "practical" example would be waiting in line.
+
+---
 
 > In computer science, a queue is a collection of entities that are maintained in a sequence and can be modified by the addition of entities at one end of the sequence and the removal of entities from the other end of the sequence. By convention, the end of the sequence at which elements are added is called the back, tail, or rear of the queue, and the end at which elements are removed is called the head or front of the queue, analogously to the words used when people line up to wait for goods or services.
-
 The operation of adding an element to the rear of the queue is known as enqueue, and the operation of removing an element from the front is known as dequeue. Other operations may also be allowed, often including a peek or front operation that returns the value of the next element to be dequeued without dequeuing it. Source: [Queue (abstract data type)](https://en.wikipedia.org/wiki/Queue_(abstract_data_type))
 
+---
+
+### Operations:
+
+1. Enqueue: adding an element.
+2. Dequeue: removing an element.
+
+### Time Complexity (Big O) for Q with array
+
+1. Enqueue: `arr[0]` -> `O(1)` or constant.
+2. Dequeue: `arr[arr.length - 1]` -> `O(1)` or constant.
+
+*Note:* 
+
+1. We are always adding/removing to/from the **END**. Given that arrays in JS have the built-in property `length`, we don't have to do further calculations. 
+2. Lookup operations are `constant`. 
+
+```js
+const list = [1, 2, 3];
+
+list[0] // 1
+list[1] // 2
+list[list.length - 1]
+```
+
+*Note:*
+`list[list.length - 1]` remember that the first index of an array is 0 and the length is the total amount of elements. If you want to lookup the last element, you need to subtract 1 to its length.
 
 ## Queue: Array implementation > this._data = []
 
