@@ -4,8 +4,8 @@ Create a `Binary Search Tree` using the `class keyword` and add through its `pro
 
 ## Solution:
 
-```JavaScript
-class BinarSearchTree {
+```javascript
+class BinarySearchTree {
   constructor(value) {
     this.value = value;
     this.left = null;
@@ -13,16 +13,16 @@ class BinarSearchTree {
   }
 }
 
-BinarSearchTree.prototype.add = function(value) {
+BinarySearchTree.prototype.add = function(value) {
   if (value <= this.value) {
     if (!this.left) {
-      this.left = new BinarSearchTree(value)
+      this.left = new BinarySearchTree(value)
     } else {
       this.left.add(value);
     }
   } else {
      if (!this.right) {
-      this.right = new BinarSearchTree(value)
+      this.right = new BinarySearchTree(value)
     } else {
       this.right.add(value);
     }
@@ -34,7 +34,7 @@ let arr = [50, 100, 40, 12, 90, 98];
 let BST;
 for (let i = 0; i < arr.length; i++) {
   if (i === 0) {
-    BST = new BinarSearchTree(arr[0]);
+    BST = new BinarySearchTree(arr[0]);
   } else {
     BST.add(arr[i]);
   }
@@ -48,17 +48,17 @@ console.log(BST);
 Time may vary in relation to the processes running on your machine.
 
 ```
-BinarSearchTree {
+BinarySearchTree {
   value: 50,
   left:
-   BinarSearchTree {
+   BinarySearchTree {
      value: 40,
-     left: BinarSearchTree { value: 12, left: null, right: null },
+     left: BinarySearchTree { value: 12, left: null, right: null },
      right: null },
   right:
-   BinarSearchTree {
+   BinarySearchTree {
      value: 100,
-     left: BinarSearchTree { value: 90, left: null, right: [Object] },
+     left: BinarySearchTree { value: 90, left: null, right: [Object] },
      right: null } }
 Function took 4.59142804145813 milliseconds.
 ```
@@ -94,7 +94,7 @@ Remember that this is just a visual reference to help you in the recursion imple
 // I start with -1 to take 0 as a level like arr
 let levels = -1;
 
-BinarSearchTree.prototype.get = function(value) {
+BinarySearchTree.prototype.get = function(value) {
   levels++;
 
   // if value is root node
@@ -160,7 +160,7 @@ The expected results are:
 ## Solution:
 
 ```javascript
-BinarSearchTree.prototype.depth = function(traverseFn) {
+BinarySearchTree.prototype.depth = function(traverseFn) {
   traverseFn(this.value);
   if (this.left) {
     this.left.depth(traverseFn);
@@ -192,8 +192,8 @@ BST.depth(logInConsole);
 
 ## Solution:
 
-```JavaScript
-BinarSearchTree.prototype.breadth = function (traverseFn) {
+```javascript
+BinarySearchTree.prototype.breadth = function (traverseFn) {
 
 // we start with a queue with our tree
 let q = [this];
@@ -234,12 +234,12 @@ BST.breadth(logInConsole);
 One more note... We can also use recursion to get the _minimum_ and _maximum_ value of the nodes in our tree.
 
 ```javascript
-BinarSearchTree.prototype.min = function() {
+BinarySearchTree.prototype.min = function() {
   if (this.left) return this.left.min();
   else return this.value;
 };
 
-BinarSearchTree.prototype.max = function() {
+BinarySearchTree.prototype.max = function() {
   if (this.right) return this.right.max();
   else return this.value;
 };

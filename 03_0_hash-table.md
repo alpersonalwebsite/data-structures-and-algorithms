@@ -17,8 +17,8 @@ Be sure that you add one collision.
 
 ## Solution:
 
-```JavaScript
-class HasthTable {
+```javascript
+class HashTable {
   constructor(length) {
     this.buckets = Array(length);
     this.numberOfBuckets = this.buckets.length;
@@ -36,7 +36,7 @@ class Node {
 
 // This IS not hashing
 // Feel free to replace with a real hash function
-HasthTable.prototype.hash = function(key) {
+HashTable.prototype.hash = function(key) {
   const abc = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
@@ -45,7 +45,7 @@ HasthTable.prototype.hash = function(key) {
   return bucket;
 }
 
-HasthTable.prototype.add = function(key, value) {
+HashTable.prototype.add = function(key, value) {
   key = key.toLowerCase();
   // We only accept string
   if (key.replace(/[a-z]/g, '') || key.length < 1) {
@@ -62,7 +62,10 @@ HasthTable.prototype.add = function(key, value) {
   }
 
   else {
-    const currentNode = this.buckets[bucketIndex];
+    // `let`, not `const`: this walks the chain by reassigning. With `const` it throws
+    // TypeError: Assignment to constant variable. once the loop body runs, which needs a
+    // THIRD key in one bucket. `get` and `getAll` below already use `let`, so this was a slip.
+    let currentNode = this.buckets[bucketIndex];
 
     while (currentNode.next) {
       currentNode = currentNode.next;
@@ -73,7 +76,7 @@ HasthTable.prototype.add = function(key, value) {
 
 
 // ABC > 26
-let HT = new HasthTable(26);
+let HT = new HashTable(26);
 HT.add('Casa', 'Casa Grande');
 HT.add('A', 'Hello');
 HT.add('Adding', 'Adding collision')
@@ -86,7 +89,7 @@ console.log(HT);
 Time may vary in relation to the processes running on your machine.
 
 ```
-HasthTable {
+HashTable {
   buckets:
    [ Node { key: 'a', value: 'Hello', next: [Object] },
      <1 empty item>,
@@ -120,7 +123,9 @@ if (objKeys.length !== objValues.length) {
   console.log('Something went wrong!');
 }
 
-let HT = new HasthTable(26);
+// Reassigning rather than redeclaring: this section shows another way to fill the SAME
+// table, and `let HT` a second time is a SyntaxError if you paste the file in order.
+HT = new HashTable(26);
 
 for (let i = 0; i < objKeys.length; i++) {
   HT.add(objKeys[i], objValues[i]);
@@ -132,7 +137,7 @@ console.log(HT);
 ## Result:
 
 ```
-HasthTable {
+HashTable {
   buckets:
    [ Node { key: 'a', value: 'Hello', next: [Object] },
      <1 empty item>,
@@ -149,7 +154,7 @@ HT.get('Adding') should return 'Adding collision'.
 ## Solution:
 
 ```javascript
-HasthTable.prototype.get = function(key) {
+HashTable.prototype.get = function(key) {
   key = key.toLowerCase();
   const bucketIndex = this.hash(key);
 
@@ -190,7 +195,7 @@ HT.getAll()[0][2] should retrieve `Node { key: 'adding', value: 'Adding collisio
 ## Solution :
 
 ```javascript
-HasthTable.prototype.getAll = function() {
+HashTable.prototype.getAll = function() {
   let nodes = [];
 
   for (let i = 0; i < this.numberOfBuckets; i++) {

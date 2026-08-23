@@ -1,0 +1,32 @@
+# Runs both checks on every push and pull request.
+#
+# This exists because of what the checks are FOR. `npm test` runs the code in the notes and verifies that
+# each NN_1_*.js still matches the NN_0_*.md it is generated from, and the whole claim of that second
+# check is that the two cannot drift apart. Without CI the guarantee is conditional on somebody
+# remembering to type a command, which is exactly the condition that let 05_1_queue-and-stack.js sit at
+# zero bytes while its notes carried four implementations.
+#
+# NO INSTALL STEP. This repository has no dependencies at all, and both scripts use only what ships with
+# node, so there is nothing to install and nothing that can break the run from outside.
+
+name: test
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - run: npm test

@@ -149,7 +149,7 @@ tail: Object { value: 0, next: null, prev: {…} }
 
 ## Solution: Remove tail node
 
-```JavaScript
+```javascript
 LinkedList.prototype.removeTail = function() {
   if (!this.tail) return null;
 
@@ -178,7 +178,7 @@ tail: Object { value: 10, next: null, prev: null }
 
 ## Solution: Search for x value
 
-```JavaScript
+```javascript
 LinkedList.prototype.searchValue = function(value) {
   let currentNode = this.head;
 
@@ -240,7 +240,7 @@ Object { value: 20, next: {…}, prev: {…} }
 
 ## Solution: Add node (x-index)
 
-```JavaScript
+```javascript
 LinkedList.prototype.addNode = function(index, value) {
   // if empty we reuse addHead() method
   // If index is 0 or less than 0 itg should be head

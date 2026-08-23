@@ -18,15 +18,31 @@ The operation of adding an element to the rear of the queue is known as enqueue,
 
 ### Time Complexity (Big O) for Q with array
 
-1. Enqueue: `arr[0]` -> `O(1)` or constant.
-2. Dequeue: `arr[arr.length - 1]` -> `O(1)` or constant.
+1. Enqueue with `unshift`: **`O(n)`**, not constant. See below.
+2. Dequeue with `pop`: `O(1)` or constant.
 
-*Note:* 
+*Note:*
 
-1. We are always adding/removing to/from the **END**. Given that arrays in JS have the built-in property `length`, we don't have to do further calculations. 
+1. **Reading a position is not the same as inserting at one.** Indexing an array (`arr[0]`,
+`arr[arr.length - 1]`) genuinely is `O(1)`, because JS arrays carry a `length` and need no further
+calculation. But the `add` below does not index, it `unshift`s, which inserts at index 0 and moves every
+existing element up one place. That is linear in the length of the queue.
+
+    Measured (one run, node 24), n calls each:
+
+    ```text
+    n=20000   unshift  18.6 ms    push  0.4 ms
+    n=40000   unshift  95.4 ms    push  1.6 ms
+    n=80000   unshift 400.9 ms    push  0.8 ms
+    ```
+
+    Doubling n quadruples the `unshift` total. An earlier version of this note claimed enqueue was
+`O(1)` and that "we are always adding/removing to/from the END", which is true of `pop` and false of
+`unshift`: it adds at the *beginning*. See [runtime complexity](./00_runtime-complexity.md) for the
+whole table and for what an O(1) array queue would look like. 
 2. Lookup operations are `constant`. 
 
-```js
+```javascript
 const list = [1, 2, 3];
 
 list[0] // 1
@@ -39,7 +55,7 @@ list[list.length - 1]
 
 ## Queue: Array implementation > this._data = []
 
-```js
+```javascript
 class Queue {
 
   constructor() {
@@ -88,7 +104,7 @@ Some considerations:
 Remember it is a convention, so you can interact with the property even when you MUST NOT do it.
 
 DO NOT do this
-```js
+```javascript
 myQueue._data = 10
 console.log(myQueue);
 // Queue { _data: 10 }
@@ -96,7 +112,8 @@ console.log(myQueue);
 
 The good news, at the time of writing these notes, [Class field declarations for JavaScript](https://github.com/tc39/proposal-class-fields) is in `stage 3` and moving through the ladder, so at future we should be able to have -natively- "private fields" in JS:
 
-```js
+```javascript
+// check: standalone
 class Queue {
   
   #data
@@ -123,7 +140,8 @@ TODO: Add example with private field
 
 ## Solution:
 
-```JavaScript
+```javascript
+// check: standalone
 class Queue {
   constructor() {
     this.data = [];
@@ -169,7 +187,7 @@ Queue.prototype.get = function() {
   return this.data.pop();
 };
 
-let Q = new Queue();
+Q = new Queue();
 Q.add(1);
 Q.add(2);
 Q.add(3);
@@ -213,7 +231,7 @@ let descSort = function(a, b) {
   return b - a;
 };
 
-let Q = new Queue();
+Q = new Queue();
 
 s1.sort(descSort); // [5, 3, 1]
 s2.sort(descSort); // [7, 6, 4, 2]
@@ -254,7 +272,7 @@ _Note:_ Perhaps the right terminology would be push instead of add, however, I w
 
 ## Solution:
 
-```JavaScript
+```javascript
 class Stack {
   constructor() {
     this.data = [];
