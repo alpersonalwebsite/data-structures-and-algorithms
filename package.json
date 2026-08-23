@@ -1,20 +1,29 @@
 {
-  "name": "data-structures",
+  "name": "data-structures-and-algorithms",
   "version": "1.0.0",
-  "description": "",
-  "main": "",
+  "description": "Data structures in JavaScript: notes plus runnable implementations, with runtime complexity stated against these implementations.",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node scripts/check-samples.mjs && node scripts/build-js.mjs --check",
+    "build": "node scripts/build-js.mjs"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/alpersonalwebsite/data-structures.git"
+    "url": "git+https://github.com/alpersonalwebsite/data-structures-and-algorithms.git"
   },
-  "keywords": [],
+  "keywords": [
+    "javascript",
+    "data-structures",
+    "binary-search-tree",
+    "hash-table",
+    "linked-list",
+    "queue",
+    "stack",
+    "big-o"
+  ],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/alpersonalwebsite/data-structures/issues"
+    "url": "https://github.com/alpersonalwebsite/data-structures-and-algorithms/issues"
   },
-  "homepage": "https://github.com/alpersonalwebsite/data-structures#readme"
+  "homepage": "https://github.com/alpersonalwebsite/data-structures-and-algorithms#readme"
 }
