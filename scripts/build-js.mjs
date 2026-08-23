@@ -3,7 +3,7 @@
 // committed file still matches what the notes would produce.
 //
 // This exists because the two had drifted badly and nothing noticed: 04_1 held one method while its
-// notes documented eight, and 05_1 was ZERO BYTES while its notes carried four implementations. A
+// notes documented ten, and 05_1 was ZERO BYTES while its notes carried four implementations. A
 // reader who cloned the repo and ran the queue file got nothing at all. Generating one from the other
 // makes the drift impossible rather than merely fixed.
 //
@@ -70,7 +70,7 @@ function render(md, title) {
     '//',
     '// GENERATED. `npm test` regenerates this from the notes and fails if the two differ, so reading',
     '// either one is safe. Before that check existed they had drifted: this pairing once had one method',
-    '// against eight documented, and the queue-and-stack file was empty while its notes were not.',
+    '// against ten documented, and the queue-and-stack file was empty while its notes were not.',
     '//',
     '// Regenerate with: npm run build',
     '',

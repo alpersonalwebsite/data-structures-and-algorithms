@@ -2,7 +2,7 @@
 //
 // GENERATED. `npm test` regenerates this from the notes and fails if the two differ, so reading
 // either one is safe. Before that check existed they had drifted: this pairing once had one method
-// against eight documented, and the queue-and-stack file was empty while its notes were not.
+// against ten documented, and the queue-and-stack file was empty while its notes were not.
 //
 // Regenerate with: npm run build
 

@@ -37,7 +37,7 @@ untagged fence, since a block with no language tag is invisible to tooling and i
 imply coverage it does not have.
 
 `scripts/build-js.mjs` generates each `.js` from its notes and `--check` fails if they differ. The notes
-are the source of truth. Before that check existed, `04_1` had one method against eight documented and
+are the source of truth. Before that check existed, `04_1` had one method against ten documented and
 `05_1` was **zero bytes** while its notes carried four implementations, so a reader who cloned the repo
 and ran the queue file got nothing at all.
 

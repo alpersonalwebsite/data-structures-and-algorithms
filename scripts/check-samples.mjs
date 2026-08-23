@@ -20,6 +20,11 @@
 // flagged rather than silently skipped: a checker that quietly ignores half the code is worse than no
 // checker, because the green result implies coverage it does not have.
 //
+// The count of legitimately-bare blocks is PRINTED rather than written into prose. A commit message here
+// claimed "76 correctly-bare fences", which was the number of lines equal to ``` and therefore counted
+// the closing fence of every tagged block too. The real figure is 25 blocks. Printing it means the
+// number cannot go stale and nobody has to trust a sentence about it.
+//
 // The `## Result:` blocks are NOT compared against the actual output. They are Firefox DevTools
 // renderings (`Object { … }`, `<prototype>:`), not node's, so a diff would fail on formatting for every
 // single one and the check would be turned off within a day. What the run does prove is that the code
@@ -42,6 +47,7 @@ function blocks(name) {
   const lines = readFileSync(join(root, name), 'utf8').split('\n')
   const tagged = []
   const untagged = []
+  let bare = 0
   let body = null
   let tag = null
   let start = 0
@@ -61,6 +67,7 @@ function blocks(name) {
           tagged.push({ start, source, standalone })
         }
         else if (!tag && LOOKS_LIKE_CODE.test(source)) untagged.push({ start, source })
+        else if (!tag) bare++
         body = null
         tag = null
       } else body.push(line)
@@ -73,7 +80,7 @@ function blocks(name) {
       start = i + 2
     }
   }
-  return { tagged, untagged }
+  return { tagged, untagged, bare }
 }
 
 const files = readdirSync(root).filter((f) => /^\d.*\.md$/.test(f)).sort()
@@ -81,12 +88,14 @@ const dir = mkdtempSync(join(tmpdir(), 'dsa-'))
 const failures = []
 let totalBlocks = 0
 let totalUntagged = 0
+let totalBare = 0
 let ran = 0
 
 for (const name of files) {
-  const { tagged, untagged } = blocks(name)
+  const { tagged, untagged, bare } = blocks(name)
   totalBlocks += tagged.length
   totalUntagged += untagged.length
+  totalBare += bare
 
   for (const u of untagged) {
     failures.push(
@@ -154,7 +163,9 @@ if (args[0] === '--print') process.exit(0)
 console.log(
   `${files.length} notes files: ${totalBlocks} tagged block(s) concatenated, ${ran} program(s) ran clean`,
 )
-console.log(`  untagged fences containing code: ${totalUntagged}`)
+console.log(
+  `  bare blocks holding output: ${totalBare}, untagged fences containing code: ${totalUntagged}`,
+)
 
 if (failures.length === 0) {
   console.log('no failures')
